@@ -1,28 +1,24 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-trap 'docker compose down -v --remove-orphans 2>/dev/null || true; rm -rf workspace' EXIT
+trap 'docker compose down -v --remove-orphans 2>/dev/null || true; rm -rf clean' EXIT
 
-rm -rf workspace
+rm -rf clean
 
-mkdir -p workspace/test1
-mkdir -p workspace/test2
-mkdir -p workspace/test3
-mkdir -p workspace/test4
-mkdir -p workspace/test5
+mkdir -p clean/test{1..5}
 
-touch -d "0 days ago" workspace/test1
-touch -d "1 days ago" workspace/test2
-touch -d "2 days ago" workspace/test3
-touch -d "3 days ago" workspace/test4
-touch -d "4 days ago" workspace/test5
+touch -d "0 days ago" clean/test1
+touch -d "1 days ago" clean/test2
+touch -d "2 days ago" clean/test3
+touch -d "3 days ago" clean/test4
+touch -d "4 days ago" clean/test5
 
 docker compose up --build -d
 sleep 1
 docker compose down
 
 actual="$(
-  find workspace -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort
+  find clean -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort
 )"
 
 expected="$(

@@ -1,8 +1,8 @@
 FROM alpine:3.22
 
-WORKDIR /app/workspace
+WORKDIR /clean
 
-COPY cleanup.sh /app/cleanup.sh
-RUN chmod +x /app/cleanup.sh
+COPY cleaner.sh /cleaner.sh
+RUN chmod +x /cleaner.sh
 
-CMD ["/app/cleanup.sh"]
+CMD ["/cleaner.sh"]
