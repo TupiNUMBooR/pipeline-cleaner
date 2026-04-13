@@ -1,0 +1,14 @@
+services:
+  cleaner:
+    image: tupinumboor/pipeline-cleaner
+    container_name: pipeline-cleaner-local
+    build:
+      context: .
+      tags:
+        - tupinumboor/pipeline-cleaner:latest
+    restart: unless-stopped
+    environment:
+      DIR_MAX_AGE_DAYS: 2
+      PRINT_DELETED: "1"
+    volumes:
+      - ./workspace:/app/workspace
