@@ -1,11 +1,8 @@
 services:
   cleaner:
-    image: tupinumboor/pipeline-cleaner
+    image: ghcr.io/tupinumboor/pipeline-cleaner
     container_name: pipeline-cleaner-local
-    build:
-      context: .
-      tags:
-        - tupinumboor/pipeline-cleaner:latest
+    build: .
     restart: unless-stopped
     environment:
       DIR_MAX_AGE_DAYS: 2
